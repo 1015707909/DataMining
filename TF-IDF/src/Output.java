@@ -8,28 +8,38 @@ public class Output {
 		// TODO Auto-generated method stub
 		Compute compute = new Compute();
 		String path = "text";
-		System.out.println("-------------------------------程序开始------------------------------");
+		System.out.println("-------------------------------------- 程序开始 --------------------------------------");
 		Comparetion rate = new Comparetion();
 		rate.printAccuracyRate(); //打印分词准确率测试结果
 		HashMap<String, Map<String, HashMap<String, Float>>> tfIdfOfAll = compute.getTfIdfOfAll(path);//输入目录下所有目录的tfIDF向量
 		HashMap<String, Float> cutWordSpeed = Compute.cutWordSpeed;
 		for (String dirName:tfIdfOfAll.keySet()){//输出结果
 			String[] d = dirName.split("/");
-			System.out.println("-----------------------------------------------------------------");
-			System.out.println("目录名称:" + dirName);
-			System.out.print("分词速度：");
-			System.out.println(cutWordSpeed.get(dirName));
+			System.out.print("\n");
+			System.out.println("------------------- 目录:" + dirName +" -------------------");
+			//System.out.println("目录名称:" + dirName);
+			System.out.print("分词时间：");
+			System.out.println(cutWordSpeed.get(dirName) + "ms");
 			System.out.println("去停词后的tf-idf:");
 			Map<String, HashMap<String, Float>> tempTfIdf = tfIdfOfAll.get(dirName);
 			for (String fileName:tempTfIdf.keySet()){//输出每个目录下的的文件的每个词的tf-idf
 				String[] f = fileName.split("/");
 				//System.out.println(d[d.length-2]);
 				if (f[f.length - 2].equals(d[d.length - 1])){//把如果文件是当前目录下的文件，则打印
-					System.out.println("文件：" + f[f.length-1]);
-					System.out.println(tempTfIdf.get(fileName));
+					System.out.print("\n");
+					System.out.println("################################### 文件:" + f[f.length-1]+ " ###################################");
+					//该方法的实现在Compute.java中，最后面的函数
+					String[] tfIdfArray = compute.mapToStringArray(tempTfIdf.get(fileName));
+					for (int i = 0;i<tfIdfArray.length;i++){//分行输出
+						if (i%5 == 0){
+							System.out.print("\n");
+						}
+						System.out.print(tfIdfArray[i] + "    ");
+					}
+					System.out.print("\n");
 				}
 			}
 		}
-		System.out.println("------------------------------程序结束-------------------------------");
+		System.out.println("-------------------------------------- 程序结束 --------------------------------------");
 	}
 }

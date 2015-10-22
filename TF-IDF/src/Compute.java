@@ -241,4 +241,26 @@ public class Compute {
 	public static float log(float value, float base) {  
         return (float) (Math.log(value) / Math.log(base)); 
 	}
+	
+	/**
+	 * 本函数是用于输出的辅助函数，把map转换成string[]，以实现分词结果的分行输出
+	 * @param map：需要转换的map<String,float>
+	 * @return：转换之后的String[],map中的每一对映射对应一个String中的一个元素
+	 */
+	public String[] mapToStringArray(HashMap<String,Float> map){
+		
+		//List<String> tempList;
+		String[] tempArray = new String[map.size()];
+		int i = 0;
+		for (String key:map.keySet()){
+			String Value = map.get(key).toString();
+			String tempElem = key + "=" + Value;
+			tempArray[i] = tempElem;
+			i++;
+			//System.out.print(key+ " ");
+			//tempList.add(key + "=" + Value);
+		}
+		//String[] Array = tempList.toArray(new String[tempList.size()]);
+		return tempArray;
+	}
 }
