@@ -6,8 +6,19 @@ function onClickSearch(word){
 	/*var sard = document.getElementById("inputWord").value;*/
 	if (word != '')
 	{
-		alert(word);
+		// alert(word);
+		var files = getFileList(word);
+		if(files == '\n'){
+			alert('关键词错误，请重新输入');
+		}else{
+			var filesString = "\n";
+			for (var i = 0;i < files.length;i++){
+				filesString = filesString + files[i] + "\n";
+			}
+			alert(filesString);
+		}
 	}
+	return false;    //阻止刷新页面
 }
 
 
@@ -26,6 +37,7 @@ function onEnterDown(word){
 	
 	if (keyValue == 13){//如果按下是enter调用onClickSearch方法
 		//alert('你按下了回车键')
+		keyValue = 0;//阻止刷新页面
 		onClickSearch(word);
 	}
 }

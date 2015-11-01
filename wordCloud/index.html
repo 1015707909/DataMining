@@ -4,7 +4,7 @@
         <meta charset = "utf-8">
 		<link rel = "Stylesheet" href = "mystyle.css">
 		<script type="text/javascript" src="jquery.js"></script>
-		<script type="text/javascript" src="myjs.js"></script>
+		
 	</head>
 	<body background="back.png">
 		<!-- 为ECharts准备一个具备大小的Dom -->
@@ -12,11 +12,13 @@
 		<div id = "wordCloudDom" class="wordCloud"></div>
 		<!-- 输入框和搜索按钮 -->
 		<form class="di" method="get">
-		<input id="inputWord" type="text" onkeydown="onEnterDown(document.getElementById('inputWord').value)" autofocus name="2" class="search" placeholder=" Search…">
-		<input id="searchButton" type="submit" onclick="onClickSearch(document.getElementById('inputWord').value)" class="sub" name="submit" value="搜索">
+		<input id="hideText" type="text" style="display:none" onkeypress="onEnterDown(document.getElementById('inputWord').value)"/>
+		<input id="inputWord" type="text" onkeypress="onEnterDown(document.getElementById('inputWord').value)" autofocus class="search" placeholder=" Search…"/>
+		<input id="searchButton" type="button" onclick="onClickSearch(document.getElementById('inputWord').value)" class="sub"  value="搜索"/>
 		</form>
 		
 		<!-- Echarts单文件引入 -->
+		<script type="text/javascript" src="myjs.js"></script>
 		<script src="echarts/build/dist/echarts.js"></script>
 		<script src="chart.js"></script>
 		<script src="cloud.js"></script>

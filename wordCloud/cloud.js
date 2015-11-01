@@ -1,5 +1,10 @@
 
 /**
+ * 保存从文档中读出的数据
+ */
+var Data;
+
+/**
  * 配置echarts相关系数
  */
 require.config({
@@ -98,6 +103,7 @@ require.config({
                     error: function(xhr){alert(xhr.responseText);},
                     success: function(data) {
                         var fileData = data.split("\n");
+                        Data = fileData;
                         for (var i = 0;i < fileData.length;i++){
                             fileData[i] = fileData[i].split(/\s+/);//每个fileData元素就是一行数据
                         }
@@ -113,17 +119,16 @@ require.config({
                                 });
                             }
                         }
-                        myChart.hideLoading();
+                        
                         //加载对象到图表中
                         myChart.setOption(option);
+                        myChart.hideLoading();
 
                     }
                 });
                 
-                (function(){//添加点击事件
-                    myChart.on('click',onClickWord)
-                })();
-
+                var ecConfig2 = require('echarts/config');
+                myChart.on(ecConfig2.EVENT.CLICK,onClickWord);
             }
 );	
 
@@ -144,23 +149,38 @@ require.config({
 }
 
 /**
- * 测试用方法
- * 生成随机字符串
- */
-function randomString(len) {
-　　len = len || 32;
-　　var $chars = 'ABCDEFGHJKMNPQRSTWXYZabcdefhijkmnprstwxyz2345678';    /****默认去掉了容易混淆的字符oOLl,9gq,Vv,Uu,I1****/
-　　var maxPos = $chars.length;
-　　var pwd = '';
-　　for (var i = 0; i < len; i++) {
-　　　　pwd += $chars.charAt(Math.floor(Math.random() * maxPos));
-　　}
-　　return pwd;
-}
-
-/**
  * 字符点击响应函数
  */
 function onClickWord(t){
-    alert(t['name']);
+    // alert(t['name']);
+    //alert(Data[0]);
+    var files = getFileList(t['name']);
+    var filesString = '\n';
+    for (var i = 0;i < files.length;i++){
+        filesString= filesString + files[i] + "\n"; 
+    }
+    alert(filesString);
+}
+
+/**
+ * 通过输入的word，查询并返回包含改word的文件列表
+ * @param  {String} word [需要查询的词]
+ * @return {String[]}      [包含word的文件列表]
+ */
+function getFileList(word){
+    var fileList = [];
+    var k = 0;
+    var fileData = Data;
+    //alert(fileData[0][0]);
+    for (var i = 0;i < fileData.length;i++){
+        var tempList = fileData[i];
+        for (var j = 1;j < tempList.length;j++){
+            if(word == tempList[j]){
+                fileList[k] = tempList[0];
+                k++;
+                break;
+            }
+        }
+    }
+    return fileList;
 }
