@@ -1,0 +1,44 @@
+/* 输入文本框 */
+.search{
+    background-color: transparent;
+    border: 0;
+    color: #ffffff;
+    font-size: 12pt;
+    height: 35px;
+    width: 400px;
+}
+
+/* echarts的图表的样式 */
+/*.echarts{
+    height: 50%;
+    width: 100%;
+}*/
+.wordCloud{
+    height: 100%;
+    width: 100%;
+    /*background-color: #ffffff;*/
+}
+/* 搜索按钮*/
+.sub{
+    background-color: transparent;
+    border: 0;
+    color: #000;
+    font-size: 12pt;
+    height:35px;
+    width:60;
+}
+/*输入框和搜索按钮的容器*/
+.di{
+    background-color: rgba(255,255,255,0.8);
+    border-bottom: #dddddd 1px solid;
+    border-left: #dddddd 1px solid;
+    border-right: #dddddd 1px solid;
+    border-top: #dddddd 1px solid;
+    height: 35px;
+    left: 50%;
+    margin-left: -250px;
+    margin-top: -50px; 
+    position: absolute;
+    top: 50%;
+    width: 465px;
+}
